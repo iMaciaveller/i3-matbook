@@ -16,10 +16,11 @@
    set $screenshot scrot $HOME/screenshots/`date +%Y-%m-%d_%H:%M:%S`.png
    set $screenshotu scrot -u $HOME/screenshots/`date +%Y-%m-%d_%H:%M:%S`.png
    set $buffer xclip -o | sed -n 1p | xargs
+   set $scrsharing ~/.config/i3status/scripts/screenshot_sharing.sh
 # Font
    font pango:Iosevka Medium 9
 # Wallpaper
-   set $wallpaper /home/mat/documents/wallpapers/arch-lamp.png
+   set $wallpaper $HOME/documents/wallpapers/arch-lamp.png
    exec_always feh --bg-scale $wallpaper
 # Key bindings
 # Basics:
@@ -28,7 +29,7 @@
     bindsym $mod+Return exec $term
 
     # kill focused window
-#    bindsym $mod+q kill
+#   bindsym $mod+q kill
     bindcode $mod+24 kill
 
     # start your launcher
@@ -156,7 +157,7 @@ mode "resize" {
 # Status Bar:
 bar {
     position top
-    status_command i3status | ~/.config/i3status/scripts/keyboard_layout.sh i3status
+    status_command i3status | ~/.config/i3status/scripts/keyboard_layout.sh i3status | ~/.config/i3status/scripts/spotify_status.py
     tray_output none
 colors {
     separator #5294e2
@@ -173,6 +174,8 @@ colors {
     bindsym $mod+b exec firefox
     bindsym Print exec $screenshot
     bindsym $mod+Print exec $screenshotu
+    bindsym --release ctrl+Print exec ~/.config/i3status/scripts/screenshot_local.sh
+    bindsym --release ctrl+Shift+Print exec ~/.config/i3status/scripts/screenshot_sharing.sh
     bindsym $mod+y exec $buffer mpv
     bindsym $mod+Shift+y exec $buffer youtube-dl
 # Start windows
