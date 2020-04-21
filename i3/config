@@ -9,7 +9,7 @@
 # Use Mouse+$mod to drag floating windows to their wanted position
    floating_modifier $mod
 # Your preferred terminal emulator
-   set $term terminator -T Terminal
+   set $term urxvt
 # Dmenu
    set $menu --no-startup-id dmenu_run -fn 'Iosevka Medium-10'
 # App
