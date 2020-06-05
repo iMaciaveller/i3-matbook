@@ -20,7 +20,7 @@
 # Font
    font pango:Iosevka Medium 9
 # Wallpaper
-   set $wallpaper $HOME/documents/wallpapers/arch-lamp.png
+   set $wallpaper $HOME/documents/wallpapers/cat-arch.jpg
    exec_always feh --bg-scale $wallpaper
 # Key bindings
 # Basics:
@@ -33,11 +33,10 @@
     bindcode $mod+24 kill
 
     # start your launcher
-    bindsym $mod+d exec $menu
-    bindsym $mod+Shift+d exec --no-startup-id dmenu_extended_run
+    bindcode $mod+40 exec $menu
 
     # reload the configuration file
-    bindsym $mod+Shift+c reload
+    bindcode $mod+Shift+54 reload
 
 #
 # Gaps
@@ -73,7 +72,7 @@
     set $ws2 "2:browser  "
     set $ws3 "3:mind  "
     set $ws4 "4:music  "
-    set $ws5 5
+    set $ws5 "5:im  "
     set $ws6 6
     set $ws7 7
     set $ws8 "8:remote linux  "
@@ -148,8 +147,8 @@ mode "resize" {
 }
 
 # Audio volume
-   bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -c 0 -q set Master 2dB+ unmute
-   bindsym XF86AudioLowerVolume exec --no-startup-id amixer -c 0 -q set Master 2db- unmute
+   bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -c 1 -q set Master 2dB+ unmute
+   bindsym XF86AudioLowerVolume exec --no-startup-id amixer -c 1 -q set Master 2db- unmute
    bindsym XF86AudioMute exec --no-startup-id amixer -q set Master toggle
 # Keyboard layout
    bindsym Caps_Lock exec ~/.config/i3status/scripts/keyboard_layout.sh cycle us ru
@@ -157,7 +156,7 @@ mode "resize" {
 # Status Bar:
 bar {
     position top
-    status_command i3status | ~/.config/i3status/scripts/keyboard_layout.sh i3status | ~/.config/i3status/scripts/spotify_status.py
+    status_command i3status | ~/.config/i3status/scripts/barAction.sh | ~/.config/i3status/scripts/keyboard_layout.sh i3status | ~/.config/i3status/scripts/spotify_status.py
     tray_output none
 colors {
     separator #5294e2
@@ -171,19 +170,19 @@ colors {
 }
 # My binds
 # App
-    bindsym $mod+b exec firefox
+    bindcode $mod+56 exec firefox
     bindsym Print exec $screenshot
     bindsym $mod+Print exec $screenshotu
     bindsym --release ctrl+Print exec ~/.config/i3status/scripts/screenshot_local.sh
     bindsym --release ctrl+Shift+Print exec ~/.config/i3status/scripts/screenshot_sharing.sh
-    bindsym $mod+y exec $buffer mpv
-    bindsym $mod+Shift+y exec $buffer youtube-dl
+    bindcode $mod+29 exec $buffer mpv
+    bindcode $mod+Shift+29 exec $buffer youtube-dl
 # Start windows
 #
     for_window [class="firefox"] move to workspace $ws2
     for_window [class="Simplenote"] move to workspace $ws3
     for_window [class="Spotify"] move to workspace $ws4
-    for_window [class="Telegram"] move to workspace $ws4
+    for_window [class="Telegram"] move to workspace $ws5
     for_window [class="Telegram"] resize set 350px
     for_window [class="Remmina"] move to workspace $ws9
 

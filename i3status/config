@@ -7,11 +7,10 @@ general {
 
 order += "wireless _first_"
 order += "disk /home/"
-order += "battery all"
 order += "tztime local"
 
 wireless _first_ {
-        format_up = " (%quality at %essid) %ip"
+        format_up = "%quality"
         format_down = ""
 }
 
@@ -23,7 +22,7 @@ battery all {
         format = "%status %percentage"
         format_down = "No battery"
         status_chr = "⚡"
-        status_bat = ""
+        status_bat = " $BAT_ICON"
         status_unk = "?"
         status_full = ""
         path = "/sys/class/power_supply/BAT%d/uevent"
@@ -32,4 +31,12 @@ battery all {
 
 tztime local {
         format = " %d.%m  %H:%M "
+}
+
+volume master {
+    format = " %volume"
+    format_muted = "婢 "
+    device = "default"
+    mixer = "Master"
+    mixer_idx = 0
 }

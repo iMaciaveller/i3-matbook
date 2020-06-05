@@ -1,0 +1,30 @@
+set linenumbers
+set titlecolor blue
+set statuscolor blue
+set numbercolor blue
+## TeX
+include "/usr/share/nano/patch.nanorc"
+## POV-Ray
+include "/usr/share/nano/pov.nanorc"
+## Perl
+include "/usr/share/nano/perl.nanorc"
+## Nanorc files
+include "/usr/share/nano/nanorc.nanorc"
+## Python
+include "/usr/share/nano/python.nanorc"
+## C/C++
+include "/usr/share/nano/c.nanorc"
+## Groff
+include "/usr/share/nano/groff.nanorc"
+## Assembler
+include "/usr/share/nano/asm.nanorc"
+## Ruby
+include "/usr/share/nano/ruby.nanorc"
+## Manpages
+include "/usr/share/nano/man.nanorc"
+## HTML
+include "/usr/share/nano/html.nanorc"
+## Bourne shell scripts
+include "/usr/share/nano/sh.nanorc"
+## Sun Java
+include "/usr/share/nano/java.nanorc"
