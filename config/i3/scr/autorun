@@ -1,0 +1,9 @@
+#!/bin/bash
+# Autorun
+exec dunst &
+(sleep 1 && redshift -l 56.01839:92.86717 -t 5700:3600 -g 0.8 -m randr -v) &
+(sleep 1 && exec thunar --daemon) &
+(sleep 10 && ~/.config/i3/scr/chek_bat) &
+(sleep 30 && g-service-balance) &
+
+paplay /usr/share/sounds/MIUI/stereo/system-ready.ogg

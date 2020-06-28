@@ -1,0 +1,26 @@
+#!/bin/bash
+
+BATNORM(){
+    sleep 1h
+}
+
+BATLOW(){
+    notify-send -u critical "  Низкий заряд батареи" "Подключите кабель питания!"
+    paplay /usr/share/sounds/MIUI/stereo/battery-low.ogg
+    sleep 15m
+}
+
+while :
+do
+
+BAT_PERC=$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | awk '/percentage/{print $2}' | tr -d %)
+
+if [[ $BAT_PERC -gt 50 ]]
+  then
+    BATNORM
+ elif [[ $BAT_PERC -lt 10 ]]
+  then
+    BATLOW
+fi
+
+done

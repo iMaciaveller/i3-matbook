@@ -1,0 +1,3 @@
+#!/bin/sh
+setxkbmap "us"
+dmenu_run -p 'run ' -nf '#888888' -nb '#222222' -sb '#5195E3' -sf '#FFFFFF' -fn 'Iosevka Medium-10'
