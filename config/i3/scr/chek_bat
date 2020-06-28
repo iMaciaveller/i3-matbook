@@ -1,5 +1,9 @@
 #!/bin/bash
 
+BATCHARGING(){
+    sleep 15m
+}
+
 BATNORM(){
     sleep 1h
 }
@@ -13,6 +17,7 @@ BATLOW(){
 while :
 do
 
+BAT_STATE=$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | awk '/state/{print $2}')
 BAT_PERC=$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | awk '/percentage/{print $2}' | tr -d %)
 
 if [[ $BAT_PERC -gt 50 ]]
@@ -21,6 +26,9 @@ if [[ $BAT_PERC -gt 50 ]]
  elif [[ $BAT_PERC -lt 10 ]]
   then
     BATLOW
+ elif [[ $BAT_STATE -eq charging ]]
+  then
+     BATCHARGING
 fi
 
 done
