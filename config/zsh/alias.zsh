@@ -5,7 +5,7 @@
 # ALIASES
 alias df='df -l -H'
 alias nano='nano -cix'
-alias neofetch='neofetch --off'
+alias neofetch='neofetch --off --config ~/.config/neofetch/matbook.conf'
 alias sirot='pacman -Qdt && sudo pacman -Rs $(pacman -Qtdq)'
 alias i3config='vim ~/.config/i3/config'
 alias i3sconfig='vim ~/.config/i3status/config'
