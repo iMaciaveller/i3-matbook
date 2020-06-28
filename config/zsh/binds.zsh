@@ -4,6 +4,7 @@
 
 #BINDS
 
+bindkey '^[[24~'    clear-screen
 bindkey "^[OH"      beginning-of-line
 bindkey "^[OF"      end-of-line
 bindkey '^[[1;5D'   backward-word
