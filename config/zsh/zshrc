@@ -1,0 +1,14 @@
+#!/bin/zsh
+# coding:     utf-8
+# Author:     Maksim Totmin, @iMaciaveller
+
+for conf in ~/.config/zsh/*.zsh; do
+	source $conf
+done
+
+#запуск i3
+if [ "$(tty)" = "/dev/tty1" ]; then
+	exec startx
+	fi
+
+#source /usr/share/powerline/bindings/zsh/powerline.zsh
