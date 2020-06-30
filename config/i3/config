@@ -16,11 +16,13 @@
     set $menu --no-startup-id dmenu_kb
     set $bsmenu --no-startup-id dmenu_search
 # Apps & Scripts
+    set $def mode "default"
     set $buffer xclip -o | sed -n 1p | xargs
     set $scrsharing $HOME/.config/i3/scr/screenshot_sharing.sh
     set $keyboard_layout $HOME/.config/i3/scr/keyboard_layout.sh
     set $spotistatus $HOME/.config/i3/scr/spotify_status.py
     set $bar $HOME/.config/i3/scr/barAction
+    set $notesmenu exec notesmenu
 # Font
     font pango:Iosevka Medium 9
 # Wallpaper
@@ -147,7 +149,8 @@
 # Status Bar:
   bar {
     position top
-    status_command exec $bar | $keyboard_layout i3status | $spotistatus
+#    status_command exec $bar | $keyboard_layout i3status | $spotistatus
+    status_command exec $bar | $spotistatus
     tray_output none
   colors {
     background #000000
@@ -171,6 +174,7 @@
     bindcode $mod+29 exec $buffer mpv
     bindcode $mod+Shift+29 exec $buffer youtube-dl
     bindcode $mod+28 exec thunar
+    bindsym  $mod+n $notesmenu
 # Start windows
     for_window [class="firefox"] move to workspace $ws2; workspace $ws2
     for_window [class="Simplenote"] move to workspace $ws3
@@ -182,21 +186,21 @@
     set $changescreen screen: [1]laptop [2]monitor [3]laptop+monitor [4]2monitors
 bindsym $mod+p mode "$changescreen"
   mode "$changescreen" {
-    bindsym 1 exec xrandr --output eDP1 --mode 1366x768 --output HDMI1 --off & feh --bg-scale $wallpaper
+    bindsym 1 exec xrandr --output eDP1 --mode 1366x768 --output HDMI1 --off & feh --bg-scale $wallpaper; $def
     bindsym 2 exec xrandr --output eDP1 --off --output HDMI1 --mode 1920x1080 & feh --bg-scale $wallpaper
     bindsym 3 exec xrandr --output eDP1 --mode 1366x768 --output HDMI1 --mode 1920x1080 --right-of eDP1 & feh --bg-scale $wallpaper
     bindsym 4 exec xrandr --output HDMI1 --mode 1920x1080 --output DP1 --mode 1920x1080 --right-of HDMI1 & feh --bg-scale $wallpaper
 
-    bindsym Escape mode "default"
-    bindsym Return mode "default"
+    bindsym Escape $def
+    bindsym Return $def
 }
 # Power off
     set $poweroff screen: [1]poweroff [2]reboot [3]lock
     bindsym $mod+Escape mode "$poweroff"
   mode "$poweroff" {
-    bindsym 1 exec systemctl poweroff
-    bindsym 2 exec systemctl reboot
-    bindsym 3 exec betterlockscreen --lock blur
+    bindsym 1 exec systemctl poweroff; $def
+    bindsym 2 exec systemctl reboot; $def
+    bindsym 3 exec betterlockscreen --lock blur; $def
 
     bindsym Escape mode "default"
     bindsym Return mode "default"

@@ -7,7 +7,7 @@ autoload -U colors && colors
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/mat/.config/i3/scr:/home/mat/.local/bin:/usr/bin/core_perl"
 export EDITOR="nano"
 export MUTT_EDITOR="nano"
-export SSH_KEY_PATH="~/.ssh/id_rsa"
+export SSH_KEY_PATH="~/.ssh/"
 export TERM="xterm-256color"
 
 #НАВИГАЦИЯ
@@ -16,7 +16,7 @@ setopt autocd
 setopt extended_glob
 
 ##автодополнение TAB
-autoload -U compinit && compinit
+autoload -Uz compinit && compinit
 _comp_options+=(globdots)
 
 # Установка-снятие опций шелла
