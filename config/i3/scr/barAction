@@ -1,12 +1,17 @@
 #!/bin/bash
 
 iconsAc=( "" "" "" "" "" )
-iconsDc=( "" "" "" "" "" "" "" "" "" "" )
 iconsM=''
+iconsDc=( "" "" "" "" "" "" "" "" "" "" )
+iconsLayout=''
+iconsWifi=''
 
 i3status | (read line; echo "$line"; read line ; echo "$line" ; read line ; echo "$line" ; while true
 do
   read line
+
+# Wifi
+wifi=$(nmcli d wifi | grep "^\*" | grep -v "\*.*SSID" | awk '{ print $8 }')
 
 # Memory
 MEM=$(free -m | awk 'NR==2{printf "%.2f%%", $3*100/$2 }')
@@ -34,8 +39,15 @@ else
     fi
 fi
 
-echo ",[{\"full_text\":\"${BAT_ICON} $BAT_PERC%\" },{\"full_text\":\"${iconsM} ${MEM}\" },${line#,\[}"
-sleep 5
+layout=$(setxkbmap -query | grep layout | rev | cut -c1-2 | rev)
+
+echo -e ",[\
+  {\"full_text\":\"${iconsLayout} $layout\" },\
+  {\"full_text\":\"${BAT_ICON} $BAT_PERC%\" },\
+  {\"full_text\":\"${iconsM} ${MEM}\" },\
+  {\"full_text\":\"${iconsWifi} ${wifi}\" },\
+    ${line#,\[}"
+
 done)
 
 exit 0

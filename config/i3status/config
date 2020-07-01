@@ -1,0 +1,12 @@
+#!/bin/zsh
+general {
+        colors = false
+        interval = 5
+        output_format = i3bar
+}
+
+order += "tztime local"
+
+tztime local {
+        format = " %d.%m  %H:%M"
+        hide_if_equals_localtime = false
