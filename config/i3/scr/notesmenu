@@ -1,15 +1,28 @@
-#!/bin/sh
+#!/bin/bash
 PN=~/documents/notes/
 touch $PN/readme.md
 echo "# NotesMenu" > $PN/readme.md
 TR="kitty sh -c"
 ED="nano -cix"
 
+find $PN* -maxdepth 0 -type f ! -name *.md -delete
 QT=$(ls $PN | wc -l)
-setxkbmap -layout us,ru
+
+layout=$(setxkbmap -query | grep layout | rev | cut -c1-2 | rev)
+if [[ $layout = us ]]; then
+    setxkbmap -layout us,ru
+else
+    setxkbmap -layout ru,us
+fi
+
 CHOISE=$(find $PN*.md -maxdepth 0 -type f | awk -F '/' '{print $NF;}' | dmenu -fn 'Iosevka Medium-10' -nf '#888888' -nb '#222222' -sb '#5195E3' -sf '#FFFFFF' -i -p "$QT notes " -f) || exit 1
+
+setxkbmap -layout "$layout"
+
 if [[ "$CHOISE" != *.md ]]; then
     CHOISE="$CHOISE.md"
 fi
 CHOISE="$ED '$PN$CHOISE'"
 $TR "$CHOISE"
+
+exit 0
