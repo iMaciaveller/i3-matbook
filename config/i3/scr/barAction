@@ -5,18 +5,17 @@ iconsM=''
 iconsDc=( "" "" "" "" "" "" "" "" "" "" )
 iconsLayout=''
 iconsWifi=''
+iconsVpn=' vpn'
 
-i3status | (read line; echo "$line"; read line ; echo "$line" ; read line ; echo "$line" ; while true
-do
-  read line
-
-# Wifi
+WIFI(){
 wifi=$(nmcli d wifi | grep "^\*" | grep -v "\*.*SSID" | awk '{ print $8 }')
+}
 
-# Memory
+MEMORY(){
 MEM=$(free -m | awk 'NR==2{printf "%.2f%%", $3*100/$2 }')
+}
 
-# Battery
+BATTERY(){
 BAT_STATE=$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | awk '/state/{print $2}')
 BAT_PERC=$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | awk '/percentage/{print $2}' | tr -d %)
 
@@ -38,14 +37,44 @@ else
     BAT_ICON=${iconsDc[$i]}
     fi
 fi
+}
 
+LAYOUT(){
 layout=$(setxkbmap -query | grep layout | rev | cut -c1-2 | rev)
+}
+
+VPNSTATUS(){
+vpnstatus=$(vpnstatus | grep "\DNS" | cut -c 5-)
+
+if [[ $vpnstatus = 'OK' ]]; then
+    vpn=$iconsVpn
+else
+    vpn=""
+fi
+sleep 10
+}
+
+i3status | (read line; echo "$line"; read line ; echo "$line" ; read line ; echo "$line" ; while true
+do
+  read line
+
+# Wifi
+WIFI
+# Memory
+MEMORY
+# Battery
+BATTERY
+# Layout
+LAYOUT
+# Vpn status
+VPNSTATUS
 
 echo -e ",[\
   {\"full_text\":\"${iconsLayout} $layout\" },\
   {\"full_text\":\"${BAT_ICON} $BAT_PERC%\" },\
   {\"full_text\":\"${iconsM} ${MEM}\" },\
   {\"full_text\":\"${iconsWifi} ${wifi}\" },\
+  {\"full_text\":\"$vpn\" },\
     ${line#,\[}"
 
 done)
